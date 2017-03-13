@@ -1,2 +1,2 @@
 # akka-demo
-some demo for AKka
+some demo for Akka
