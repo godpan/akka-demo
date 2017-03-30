@@ -12,6 +12,7 @@ class BossActor extends Actor {
   val log = Logging(context.system, this)
   implicit val askTimeout = Timeout(5 seconds)
   import context.dispatcher
+  var taskCount = 0
   def receive: Receive = {
     case b: Business =>
       log.info("I must to do some thing,go,go,go!")
@@ -19,7 +20,6 @@ class BossActor extends Actor {
       //创建Actor得到ActorRef的另一种方式，利用ActorContext.actorOf
       val managerActors = (1 to 3).map(i =>
         context.actorOf(Props[ManagerActor], s"manager${i}")) //这里我们召唤3个主管
-      var taskCount = 0
       //告诉他们开会商量大计划
       managerActors foreach {
         _ ? Meeting("Meeting to discuss big plans") map {
@@ -30,18 +30,17 @@ class BossActor extends Actor {
             //根据Actor路径查找已经存在的Actor获得ActorRef
             //这里c.actorPath是绝对路径,你也可以根据相对路径得到相应的ActorRef
             val manager = context.actorSelection(c.actorPath)
-            manager ? DoAction("Do thing") map {
-              case d: Done =>
-                synchronized(
-                  taskCount += 1
-                )
-                if (taskCount == 3) {
-                  log.info("the project is done, we will earn much money")
-                  context.system.terminate()
-                }
-            }
+            manager ! DoAction("Do thing")
         }
       }
+    case d: Done => {
+      taskCount += 1
+      println(taskCount)
+      if (taskCount == 3) {
+        log.info("the project is done, we will earn much money")
+        context.system.terminate()
+      }
+    }
   }
 }
 class ManagerActor extends Actor {
