@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: com.typesafe.akka:akka-testkit_2.11:2.4.16:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-testkit_2.11/jars/akka-testkit_2.11-2.4.16.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-testkit_2.11/srcs/akka-testkit_2.11-2.4.16-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
