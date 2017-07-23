@@ -154,7 +154,7 @@ class LotteryActorN(initState: Lottery) extends PersistentActor with ActorLoggin
     failure.foreach {
       case (event, ref) => ref ! event
     }
-    this.lotteryQueue.clear()  //情况参与队列
+    this.lotteryQueue.clear()  //清空参与队列
   }
 
 
