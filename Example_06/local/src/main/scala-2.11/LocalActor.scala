@@ -29,11 +29,7 @@ class LocalActor extends Actor {
 
   def receive: Receive = {
     case Init => "init local actor"
-    case SendNoReturn =>
-      for {
-        remoteActor <- remoteActor.resolveOne()
-        r = remoteActor ! "kkkk"
-      } yield r
+    case SendNoReturn => remoteActor ! "hello remote actor"
     case SendHasReturn =>
       for {
         r <- remoteActor.ask("hello remote actor")
